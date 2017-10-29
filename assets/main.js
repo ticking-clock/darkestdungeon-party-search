@@ -22,9 +22,12 @@ function updateRows() {
     if (v !== 'Select') return v.toLowerCase();
   }).toArray();
   $('.table-container tr').slice(1).each(function(index, row) {
-    console.log(row);
     var rowClasses = $(row).find('img').map(function() { return $(this).attr('alt'); }).toArray();
-    $(row).toggle(includeClasses.every(function(cls) { return rowClasses.includes(cls); }));
+    $(row).toggle(includeClasses.every(function(cls) {
+      var rowClassIndex = rowClasses.indexOf(cls);
+      if (rowClassIndex > -1) rowClasses.splice(rowClassIndex, 1);
+      return rowClassIndex > -1;
+    }));
   });
   var count = $('.table-container tr:visible').slice(1).length;
   $('.filters .results').text(count + (count === 1 ? ' result' : ' results'));
