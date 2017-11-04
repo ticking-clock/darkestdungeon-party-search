@@ -5,6 +5,8 @@ function initTable() {
     $(this).find('table a img').unwrap().each(function(index, img) {
       var $img = $(img);
       var cls = $img.attr('alt').replace(' portrait roster.png', '').toLowerCase();
+      // Fix naming consistency for houndmaster
+      cls = cls === 'hound master' ? 'houndmaster' : cls;
       $img.attr('alt', cls).attr('src', 'assets/images/' + cls + '.png');
     });
   });
